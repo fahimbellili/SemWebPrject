@@ -26,11 +26,12 @@ class Employees_Name(Resource):
 
 class Test(Resource):
   def get(self):
-    sparql = SPARQLWrapper("http://dbpedia.org/sparql")
+    sparql = SPARQLWrapper("http://localhost:8080/sparql")
     sparql.setQuery("""
-        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        SELECT ?label
-        WHERE { <http://dbpedia.org/resource/Asturias> rdfs:label ?label }
+        prefix h: <http://www.webofdata.fr/vocabulary#>
+        select * where {
+          ?x a h:Homme
+        }
     """)
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
